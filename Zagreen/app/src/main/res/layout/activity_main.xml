@@ -9,7 +9,7 @@
         map:cameraTargetLat="45.8144400"
         map:cameraTargetLng="15.9779800"
         map:cameraZoom="13"
-        
+        map:uiZoomControls="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Button"
-        android:id="@+id/button"
+        android:id="@+id/izmjena_button_id-a"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp" />
