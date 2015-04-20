@@ -4,7 +4,7 @@
 
     <uses-sdk
         android:minSdkVersion="9"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="11" />
     <!-- sva sranja do application su za google maps -->
     <uses-feature
         android:glEsVersion="0x00020000"

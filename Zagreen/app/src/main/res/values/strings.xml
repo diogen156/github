@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Zagreen</string>
+    <string name="filtracija">filtracija</string>
+    <string name="korisni_savjeti">korisni savjeti</string>
+    <string name="biljka">biljka</string>
+    <string name="about">about</string>
 
 </resources>
