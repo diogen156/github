@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/filtrationButton"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:scaleType="fitXY"
+        android:src="@drawable/icons_v2_01"
+        android:contentDescription="@string/filtracija" />
+
+    <ImageButton
+        android:id="@+id/informationButton"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:scaleType="fitXY"
+        android:src="@drawable/icons_v2_02"
+        android:contentDescription="@string/korisni_savjeti" />
+
+    <ImageButton
+        android:id="@+id/gameficationButton"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:scaleType="fitXY"
+        android:src="@drawable/icons_v2_03"
+        android:contentDescription="@string/biljka" />
+
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:scaleType="fitXY"
+        android:src="@drawable/icons_v2_04"
+        android:contentDescription="@string/about" />
+
+</LinearLayout>
