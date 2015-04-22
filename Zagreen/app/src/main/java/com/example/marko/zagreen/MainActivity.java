@@ -2,6 +2,7 @@ package com.example.marko.zagreen;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -200,6 +201,34 @@ public class MainActivity extends Activity implements OnMarkerClickListener {
 
     }
 
+   /**
+    * Metoda otvara wiew za prikaz informacija o recikliranju.
+    *
+    * @param view view koji je klinknut
+    */
+    public void getInformation (View view) {
+        Intent intent = new Intent(this, ShowInformationActivity.class);
+        startActivity(intent);
+    }
 
+   /**
+    * Metoda otvara view za prikaz gamification dijela aplikacije.
+    *
+    * @param view view koji je kliknut
+    */
+    public void openGamification(View view) {
+        Intent intent = new Intent(this, Gamification.class);
+        startActivity(intent);
+    }
+
+   /**
+    * Metoda otvara view za prikaz postavka aplikacije.
+    *
+    * @param view view koji je kliknut
+    */
+    public void openSettings(View view) {
+        Intent intent = new Intent(this, Settings.class);
+        startActivity(intent);
+    }
 
 }//kraj

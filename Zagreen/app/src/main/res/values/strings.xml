@@ -4,5 +4,8 @@
     <string name="korisni_savjeti">korisni savjeti</string>
     <string name="biljka">biljka</string>
     <string name="about">about</string>
-
+    <string name="title_activity_show_information">ShowInformationActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_gamification">Gamification</string>
+    <string name="title_activity_settings">Settings</string>
 </resources>
