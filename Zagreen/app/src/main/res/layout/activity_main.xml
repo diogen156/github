@@ -13,13 +13,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-        <include layout="@layout/buttons"/>
+        <include layout="@layout/buttons"
+            android:id="@+id/include" />
 
-        <TextView
-            android:id="@+id/tekst"
-            android:layout_width="800dp"
-            android:layout_height="50dp"
-            android:layout_margin="120dp"
-            android:textColor="#ffffff"/>
+    <!-- testni gumb za gps lokaciju -->
+
+        <Button
+            android:id="@+id/pokazi_lokaciju"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="prikazi \nlokaciju"/>
 
 </RelativeLayout>

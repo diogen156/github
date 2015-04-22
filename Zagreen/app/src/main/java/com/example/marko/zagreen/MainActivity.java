@@ -2,16 +2,22 @@ package com.example.marko.zagreen;
 
 
 import android.annotation.SuppressLint;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import android.widget.LinearLayout;
 
+
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -20,55 +26,125 @@ import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 
 public class MainActivity extends Activity implements OnMarkerClickListener {
 
-    private static final LatLng ZAGREB = new LatLng(45.8144400 , 15.9779800);
+    private static final LatLng ZAGREB = new LatLng(45.8144400, 15.9779800);
+    private LatLng mojaLokacija;
     private GoogleMap map;
     Marker marker;
     private static final int[] idArray = {R.id.filtrationButton,
-                                          R.id.informationButton,
-                                          R.id.gameficationButton,
-                                          R.id.settingsButton};
+            R.id.informationButton,
+            R.id.gameficationButton,
+            R.id.settingsButton};
 
-    private ImageButton []  buttonArray = new ImageButton[4];
+    private ImageButton[] buttonArray = new ImageButton[4];
 
+    GPSTracker gps;
+    Button prikaziLokaciju;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initMap(); // dodaje mapu na kartu
+        addMyMarker(map, ZAGREB);
 
-        initMapMarker(ZAGREB);
+
+
         map.setOnMarkerClickListener(this);
 
-        for ( int i=0; i<idArray.length; i++) {
-            buttonArray [i] = (ImageButton)findViewById(idArray[i]);
+        for (int i = 0; i < idArray.length; i++) {
+            buttonArray[i] = (ImageButton) findViewById(idArray[i]);
         }
 
         setSquareButtons(buttonArray[0]);
+
+        prikaziLokaciju = (Button) findViewById(R.id.pokazi_lokaciju);
+        prikaziLokaciju.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // create class object
+                gps = new GPSTracker(MainActivity.this);
+
+                // check if GPS enabled
+                if (gps.canGetLocation()) {
+
+                    double latitude = gps.getLatitude();
+                    double longitude = gps.getLongitude();
+                    mojaLokacija = new LatLng(latitude, longitude);
+
+                    // \n is for new line
+                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude +
+                            "\nLong: " + longitude + "\nlok:" + mojaLokacija.toString(), Toast.LENGTH_LONG).show();
+                } else {
+                    // can't get location
+                    // GPS or Network is not enabled
+                    // Ask user to enable GPS/network in settings
+                    gps.showSettingsAlert();
+                }
+            }
+        });
+
+
+
+    } //onCreate
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        //centerCameraOnLocation(mojaLokacija);
+        map.setMyLocationEnabled(true);
+
+
+
+    }
+
+
+    public void centerCameraOnLocation(LatLng lokacija) {
+        addMyMarker(map, lokacija);
+        if(lokacija != null) {
+
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(lokacija)
+                .zoom(13)
+                .build();
+
+            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+        }
+
     }
 
 
     /**
      * metoda koja postavlja na postojecu mapu marker
-     * @param mjesto - prima geografsku sirinu i duzinu
+     *
+     *  prima geografsku sirinu i duzinu
      */
-    private void initMapMarker(LatLng mjesto){
+    private void initMap() {
 
         try {
             if (map == null) {
                 map = ((MapFragment) getFragmentManager().
-                findFragmentById(R.id.mapView)).getMap();
-             }
+                        findFragmentById(R.id.mapView)).getMap();
+            }
 
-            marker = map.addMarker(new MarkerOptions()
-                    .position(mjesto)
-                    .title("Lepi Zagreb")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            //tu je bilo stvaranje markera
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    private void addMyMarker(GoogleMap map, LatLng mjesto) {
+
+        marker = map.addMarker(new MarkerOptions()
+                .position(mjesto)
+                .title("Natpis")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+    }
+
 
     /**
      * Metoda koja prilikom pritiska na marker pokazuje natpis iznad markera i izbacije poruku
@@ -123,7 +199,10 @@ public class MainActivity extends Activity implements OnMarkerClickListener {
             }
         });
 
-    }//metoda
+    }
+
+
+
 
 
 
