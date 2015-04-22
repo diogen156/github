@@ -2,6 +2,7 @@ package com.example.marko.zagreen;
 
 
 import android.annotation.SuppressLint;
+import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.app.Activity;
@@ -19,6 +20,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
@@ -26,6 +28,7 @@ import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 
 public class MainActivity extends Activity implements OnMarkerClickListener {
 
+    Location location;
     private static final LatLng ZAGREB = new LatLng(45.8144400, 15.9779800);
     private LatLng mojaLokacija;
     private GoogleMap map;
@@ -46,10 +49,7 @@ public class MainActivity extends Activity implements OnMarkerClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initMap(); // dodaje mapu na kartu
-        addMyMarker(map, ZAGREB);
-
-
-
+        addMyMarker(ZAGREB, marker);
         map.setOnMarkerClickListener(this);
 
         for (int i = 0; i < idArray.length; i++) {
@@ -58,7 +58,10 @@ public class MainActivity extends Activity implements OnMarkerClickListener {
 
         setSquareButtons(buttonArray[0]);
 
+
+        //testni gumb, prikazuje i povlaci kameru na lokaciju
         prikaziLokaciju = (Button) findViewById(R.id.pokazi_lokaciju);
+
         prikaziLokaciju.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,9 +75,10 @@ public class MainActivity extends Activity implements OnMarkerClickListener {
                     double longitude = gps.getLongitude();
                     mojaLokacija = new LatLng(latitude, longitude);
 
-                    // \n is for new line
+                    centerCameraOnLocation(mojaLokacija);
+
                     Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude +
-                            "\nLong: " + longitude + "\nlok:" + mojaLokacija.toString(), Toast.LENGTH_LONG).show();
+                            "\nLong: " + longitude, Toast.LENGTH_LONG).show();
                 } else {
                     // can't get location
                     // GPS or Network is not enabled
@@ -92,37 +96,31 @@ public class MainActivity extends Activity implements OnMarkerClickListener {
     @Override
     public void onResume() {
         super.onResume();
-
-        //centerCameraOnLocation(mojaLokacija);
-        map.setMyLocationEnabled(true);
-
-
-
-    }
-
-
-    public void centerCameraOnLocation(LatLng lokacija) {
-        addMyMarker(map, lokacija);
-        if(lokacija != null) {
-
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(lokacija)
-                .zoom(13)
-                .build();
-
-            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-        }
+        map.setMyLocationEnabled(true); // blue Google dot enabled
 
     }
 
 
     /**
-     * metoda koja postavlja na postojecu mapu marker
+     * Metoda centrira pogled na mapi sukladno lokaciji
      *
-     *  prima geografsku sirinu i duzinu
+     * @param lokacija Prima lokaciju
      */
-    private void initMap() {
+    public void centerCameraOnLocation(final LatLng lokacija) {
+            if(lokacija != null) {
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .zoom(15)
+                    .target(mojaLokacija)
+                    .build();
+            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
+    }
+
+
+    /**
+     * Metoda koja postavlja mapu.
+     */
+    public void initMap() {
 
         try {
             if (map == null) {
@@ -137,7 +135,7 @@ public class MainActivity extends Activity implements OnMarkerClickListener {
         }
     }
 
-    private void addMyMarker(GoogleMap map, LatLng mjesto) {
+    private void addMyMarker(LatLng mjesto, Marker marker) {
 
         marker = map.addMarker(new MarkerOptions()
                 .position(mjesto)
@@ -147,10 +145,11 @@ public class MainActivity extends Activity implements OnMarkerClickListener {
 
 
     /**
-     * Metoda koja prilikom pritiska na marker pokazuje natpis iznad markera i izbacije poruku
-     * na ekranu
+     * Metoda koja prilikom pritiska na marker pokazuje natpis iznad markera i izbacuje poruku
+     * na ekranu.
+     *
      * @param marker ulazni parametar je marker
-     * @return vraca stavili smo true jer zelimo hendlat event
+     * @return True - želim hendlat event.
      */
     @Override
     public boolean onMarkerClick(Marker marker) {
@@ -166,10 +165,10 @@ public class MainActivity extends Activity implements OnMarkerClickListener {
 
     /**
      *Metoda pretvara 4 buttona rasirena horizontalno po ekranu u oblik kvadrata neovisno o
-     *velicini ekrana
+     *velicini ekrana.
      *
-     * @param firstButton prima i mjeri sirinu prvog gumba i na osnovu njega postavlja na istu duzinu
-     *                    visine svih ostalih gumbova
+     * @param firstButton Prima i mjeri sirinu prvog gumba i na osnovu njega postavlja na istu duzinu
+     *                    visine svih ostalih gumbova.
      */
     public void setSquareButtons (final ImageButton firstButton ){
         firstButton.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -200,9 +199,6 @@ public class MainActivity extends Activity implements OnMarkerClickListener {
         });
 
     }
-
-
-
 
 
 

@@ -22,8 +22,8 @@
             android:id="@+id/pokazi_lokaciju"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:text="prikazi \nlokaciju"/>
+            android:text="prikazi \nlokaciju"
+            android:layout_below="@+id/include"
+            android:layout_alignRight="@+id/include" />
 
 </RelativeLayout>

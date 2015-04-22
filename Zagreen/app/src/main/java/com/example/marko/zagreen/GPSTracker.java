@@ -17,6 +17,12 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+
 public class GPSTracker extends Service implements LocationListener {
 
     private final Context mContext;
@@ -109,8 +115,8 @@ public class GPSTracker extends Service implements LocationListener {
     }
 
     /**
-     * Stop using GPS listener
-     * Calling this function will stop using GPS in your app
+     * Prestanak korištenja GPS listenera
+     * Pozivanje ove funkcije prestat ce koristiti GPS u vašoj aplikaciji
      * */
     public void stopUsingGPS(){
         if(locationManager != null){
@@ -119,31 +125,27 @@ public class GPSTracker extends Service implements LocationListener {
     }
 
     /**
-     * Function to get latitude
+     * Metoda za dobivanje geografske širine
      * */
     public double getLatitude(){
         if(location != null){
             latitude = location.getLatitude();
         }
-
-        // return latitude
         return latitude;
     }
 
     /**
-     * Function to get longitude
+     * Metoda za dobivanje geografske dužine
      * */
     public double getLongitude(){
         if(location != null){
             longitude = location.getLongitude();
         }
-
-        // return longitude
         return longitude;
     }
 
     /**
-     * Function to check GPS/wifi enabled
+     * Metoda za provjeravanje GPS/wifi uključenosti
      * @return boolean
      * */
     public boolean canGetLocation() {
@@ -151,20 +153,20 @@ public class GPSTracker extends Service implements LocationListener {
     }
 
     /**
-     * Function to show settings alert dialog
-     * On pressing Settings button will lauch Settings Options
+     * Metoda pokazuje settings upozoravajući prozor
+     * Na pritisak Settings buttona prebacit će korisnika na Settings Options
      * */
     public void showSettingsAlert(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
         // Setting Dialog Title
-        alertDialog.setTitle("GPS is settings");
+        alertDialog.setTitle("GPS postavke");
 
-        // Setting Dialog Message
-        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
+        // Setting Dialog Message GPS is not enabled. Do you want to go to settings menu?
+        alertDialog.setMessage("GPS nije uključen. Uključiti GPS u postavkama?");
 
         // On pressing Settings button
-        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton("Postavke", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog,int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
@@ -172,7 +174,7 @@ public class GPSTracker extends Service implements LocationListener {
         });
 
         // on pressing cancel button
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("Odbij", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
@@ -182,24 +184,16 @@ public class GPSTracker extends Service implements LocationListener {
         alertDialog.show();
     }
 
+
     @Override
     public void onLocationChanged(Location location) {
 
-        /*if( mListener != null )
-        {
-            mListener.onLocationChanged( location );
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
 
-            LatLngBounds bounds = this.mMap.getProjection().getVisibleRegion().latLngBounds;
+        LatLng latLng = new LatLng(latitude, longitude);
 
-            if(!bounds.contains(new LatLng(location.getLatitude(), location.getLongitude())))
-            {
-                //Move the camera to the user's location once it's available!
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(), location.getLongitude())));
-            }
-        }*/
-
-        //kada lokacija korisnika ode sa ekrana kamera se mice na novu poziciju i centrira pogled
-        //treba istrazit kod
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(latLng);
     }
 
     @Override
