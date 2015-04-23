@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -43,6 +44,7 @@ public class MainActivity extends Activity implements OnMarkerClickListener {
 
     GPSTracker gps;
     Button prikaziLokaciju;
+    boolean stanje = true;
 
 
     @Override
@@ -64,9 +66,10 @@ public class MainActivity extends Activity implements OnMarkerClickListener {
         prikaziLokaciju = (Button) findViewById(R.id.pokazi_lokaciju);
 
         prikaziLokaciju.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                // create class object
+                 // create class object
                 gps = new GPSTracker(MainActivity.this);
 
                 // check if GPS enabled
@@ -75,6 +78,8 @@ public class MainActivity extends Activity implements OnMarkerClickListener {
                     double latitude = gps.getLatitude();
                     double longitude = gps.getLongitude();
                     mojaLokacija = new LatLng(latitude, longitude);
+
+
 
                     centerCameraOnLocation(mojaLokacija);
 
@@ -88,6 +93,15 @@ public class MainActivity extends Activity implements OnMarkerClickListener {
                 }
             }
         });
+
+
+
+       /* buttonArray[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getInformation(v);
+            }
+        });*/
 
 
 

@@ -14,7 +14,7 @@ public class Settings extends Activity {
         setContentView(R.layout.activity_settings);
     }
 
-    @Override
+   /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -27,5 +27,5 @@ public class Settings extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }
