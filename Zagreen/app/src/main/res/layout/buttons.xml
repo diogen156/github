@@ -4,46 +4,56 @@
     android:layout_marginRight="10dp"
     android:layout_marginLeft="10dp"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="100dp"
     android:orientation="horizontal">
 
-    <ImageButton
+    <!-- android:textOn=""
+        android:textOff=""
+        android:text="" -->
+
+    <com.example.marko.zagreen.SquareButton
         android:id="@+id/filtrationButton"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="@drawable/round_button"
         android:scaleType="fitXY"
-        android:src="@drawable/icons_v2_01"
+        android:layout_margin="5dp"
+        android:checked="false"
         android:contentDescription="@string/filtracija"/>
 
-    <ImageButton
+    <com.example.marko.zagreen.SquareButton
         android:id="@+id/informationButton"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="@drawable/round_button"
         android:scaleType="fitXY"
-        android:src="@drawable/icons_v2_02"
-        android:contentDescription="@string/korisni_savjeti"
-        android:onClick="getInformation"/>
+        android:layout_margin="5dp"
+        android:checked="false"
+        android:contentDescription="@string/korisni_savjeti"/>
 
-    <ImageButton
+    <com.example.marko.zagreen.SquareButton
         android:id="@+id/gameficationButton"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="@drawable/round_button"
         android:scaleType="fitXY"
-        android:src="@drawable/icons_v2_03"
-        android:contentDescription="@string/biljka"
-        android:onClick="openGamification"/>
+        android:layout_margin="5dp"
+        android:checked="false"
+        android:contentDescription="@string/biljka"/>
 
-    <ImageButton
+    <com.example.marko.zagreen.SquareButton
         android:id="@+id/settingsButton"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:background="@drawable/round_button"
         android:scaleType="fitXY"
-        android:src="@drawable/icons_v2_04"
-        android:contentDescription="@string/about"
-        android:onClick="openSettings"/>
+        android:layout_margin="5dp"
+        android:checked="false"
+        android:contentDescription="@string/about"/>
+
 
 </LinearLayout>
