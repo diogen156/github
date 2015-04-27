@@ -9,7 +9,12 @@ import android.view.ViewGroup;
 /**
  * Created by Marko on 24.4.2015..
  */
-public class FragmentMapButtons extends Fragment {
+public class FragmentMapButtons extends Fragment implements View.OnClickListener {
+
+    SquareToggleButton plantButton;
+    SquareToggleButton locationButton;
+    boolean locationButtonState = false;
+    ButtonStateFragmentMapButtons respond;
 
 
     public FragmentMapButtons() {
@@ -20,9 +25,28 @@ public class FragmentMapButtons extends Fragment {
                              Bundle savedInstanceState) {
 
         View mapButton = inflater.inflate(R.layout.fragment_map_buttons, null);
+        locationButton = (SquareToggleButton) mapButton.findViewById(R.id.pokazi_lokaciju);
+        locationButton.setOnClickListener(this);
 
 
         return mapButton;
     }
 
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        respond = (ButtonStateFragmentMapButtons) getActivity();
+        locationButton = (SquareToggleButton) getActivity().findViewById(R.id.pokazi_lokaciju);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        locationButtonState = true;
+        respond.getLocationButtonState(locationButtonState);
+        locationButtonState = false;
+
+    }
 }

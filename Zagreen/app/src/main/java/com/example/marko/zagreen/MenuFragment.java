@@ -18,9 +18,6 @@ public class MenuFragment extends Fragment {
     Fragment frag;
     FragmentTransaction fragTransaction;
     boolean[] array = new boolean[4];
-    int stBt = 0, counter = 0;
-
-    boolean newSt=false, oldSt=false;
 
 
     @Override
@@ -34,10 +31,10 @@ public class MenuFragment extends Fragment {
         fragTransaction.commit();
 
 
-        final SquareButton filtration = (SquareButton) view.findViewById(R.id.filtrationButton);
-        final SquareButton information = (SquareButton) view.findViewById(R.id.informationButton);
-        final SquareButton gamification = (SquareButton) view.findViewById(R.id.gameficationButton);
-        final SquareButton settings = (SquareButton) view.findViewById(R.id.settingsButton);
+        final SquareToggleButton filtration = (SquareToggleButton) view.findViewById(R.id.filtrationButton);
+        final SquareToggleButton information = (SquareToggleButton) view.findViewById(R.id.informationButton);
+        final SquareToggleButton gamification = (SquareToggleButton) view.findViewById(R.id.gameficationButton);
+        final SquareToggleButton settings = (SquareToggleButton) view.findViewById(R.id.settingsButton);
 
         //setSquareButtons(filtration,information, gamification,settings); //namjestanje gumbova u layoutu
 
@@ -60,8 +57,8 @@ public class MenuFragment extends Fragment {
         information.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    frag = new FragmentAdvices();
-                    fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag, "FILTRACIJA");
+                    frag = new SavedTabsFragment();
+                    fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag, "ADVICES");
                     fragTransaction.commit();
                     array[1]=true;
                     stateButtonsOff(gamification,settings,filtration);
@@ -77,7 +74,7 @@ public class MenuFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     frag = new FragmentGamification();
-                    fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag, "FILTRACIJA");
+                    fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag, "GAME");
                     fragTransaction.commit();
                     array[2]=true;
                     stateButtonsOff(settings,filtration,information);
@@ -93,7 +90,7 @@ public class MenuFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     frag = new FragmentSettings();
-                    fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag, "FILTRACIJA");
+                    fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag, "SETTINGS");
                     fragTransaction.commit();
                     array[3] = true;
                     stateButtonsOff(filtration,information,gamification);
@@ -111,7 +108,7 @@ public class MenuFragment extends Fragment {
     }
 
 
-    public void stateButtonsOff( SquareButton bt2, SquareButton bt3, SquareButton bt4) {
+    public void stateButtonsOff( SquareToggleButton bt2, SquareToggleButton bt3, SquareToggleButton bt4) {
          bt2.setChecked(false);
          bt3.setChecked(false);
          bt4.setChecked(false);

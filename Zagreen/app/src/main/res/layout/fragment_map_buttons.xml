@@ -18,8 +18,8 @@
         android:layout_alignParentBottom="true"
         android:id="@+id/linearLayout1">
 
-        <com.example.marko.zagreen.SquareButton
-            android:id="@+id/plantButton"
+        <com.example.marko.zagreen.SquareToggleButton
+            android:id="@+id/plant_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -54,14 +54,16 @@
         android:layout_above="@+id/linearLayout1">
 
 
-        <com.example.marko.zagreen.SquareButton
+        <com.example.marko.zagreen.SquareToggleButton
             android:id="@+id/pokazi_lokaciju"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginTop="20dp"
             android:background="@drawable/round_button"
-            android:text="prikazi \nlokaciju" />
+            android:text="prikazi \nlokaciju"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <Space
             android:layout_width="0dp"

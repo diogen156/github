@@ -4,4 +4,11 @@
     <string name="korisni_savjeti">korisni savjeti</string>
     <string name="biljka">biljka</string>
     <string name="about">about</string>
+    <string name="aim">aim </string>
+    <string name="bebo">bebo </string>
+    <string name="youtube">youtube </string>
+    <string name="aim_description">aim descr </string>
+    <string name="bebo_description">bebo descr </string>
+    <string name="youtube_description">youtube descr </string>
+    <string name="icon_content_description">icon_content_description</string>
 </resources>

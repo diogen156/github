@@ -11,7 +11,7 @@
         android:textOff=""
         android:text="" -->
 
-    <com.example.marko.zagreen.SquareButton
+    <com.example.marko.zagreen.SquareToggleButton
         android:id="@+id/filtrationButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:checked="false"
         android:contentDescription="@string/filtracija"/>
 
-    <com.example.marko.zagreen.SquareButton
+    <com.example.marko.zagreen.SquareToggleButton
         android:id="@+id/informationButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         android:checked="false"
         android:contentDescription="@string/korisni_savjeti"/>
 
-    <com.example.marko.zagreen.SquareButton
+    <com.example.marko.zagreen.SquareToggleButton
         android:id="@+id/gameficationButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
         android:checked="false"
         android:contentDescription="@string/biljka"/>
 
-    <com.example.marko.zagreen.SquareButton
+    <com.example.marko.zagreen.SquareToggleButton
         android:id="@+id/settingsButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
