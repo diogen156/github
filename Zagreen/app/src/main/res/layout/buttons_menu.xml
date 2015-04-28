@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+
+    <com.example.marko.zagreen.SquareToggleButton
+        android:id="@+id/filtrationButton"
+        android:background="@drawable/bt_filtration_press_unpress"
+        android:contentDescription="@string/filtracija"
+        style="@style/Buttons_style"
+        android:layout_marginRight="32dp"/>
+
+    <com.example.marko.zagreen.SquareToggleButton
+        android:id="@+id/informationButton"
+        android:background="@drawable/bt_advice_press_unpress"
+        android:contentDescription="@string/korisni_savjeti"
+        style="@style/Buttons_style"
+        android:layout_marginRight="32dp"/>
+
+    <com.example.marko.zagreen.SquareToggleButton
+        android:id="@+id/gameficationButton"
+        android:background="@drawable/bt_game_press_unpress"
+        android:contentDescription="@string/biljka"
+        android:layout_marginRight="32dp"
+        style="@style/Buttons_style"/>
+
+    <com.example.marko.zagreen.SquareToggleButton
+        android:id="@+id/settingsButton"
+        android:background="@drawable/bt_settings_press_unpress"
+        android:contentDescription="@string/about"
+        style="@style/Buttons_style"/>
+
+
+</LinearLayout>

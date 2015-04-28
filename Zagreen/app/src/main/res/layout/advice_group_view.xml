@@ -5,14 +5,6 @@
 
     <TextView
         android:id="@+id/group_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:paddingLeft="40dp"
-        android:paddingRight="0dp"
-        android:textColor="#ff000000"
-        android:background="#ffffffff"/>
+        style="@style/Text_style_2"/>
 
 </RelativeLayout>

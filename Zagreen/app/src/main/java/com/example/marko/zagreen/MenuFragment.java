@@ -57,7 +57,7 @@ public class MenuFragment extends Fragment {
         information.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    frag = new SavedTabsFragment();
+                    frag = new FragmentAdvices();
                     fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag, "ADVICES");
                     fragTransaction.commit();
                     array[1]=true;

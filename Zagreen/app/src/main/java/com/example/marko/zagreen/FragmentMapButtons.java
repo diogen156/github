@@ -11,7 +11,7 @@ import android.view.ViewGroup;
  */
 public class FragmentMapButtons extends Fragment implements View.OnClickListener {
 
-    SquareToggleButton plantButton;
+    //SquareToggleButton plantButton;
     SquareToggleButton locationButton;
     boolean locationButtonState = false;
     ButtonStateFragmentMapButtons respond;
@@ -24,8 +24,8 @@ public class FragmentMapButtons extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View mapButton = inflater.inflate(R.layout.fragment_map_buttons, null);
-        locationButton = (SquareToggleButton) mapButton.findViewById(R.id.pokazi_lokaciju);
+        View mapButton = inflater.inflate(R.layout.fragment_map_buttons, container,false);
+        locationButton = (SquareToggleButton)mapButton.findViewById(R.id.pokazi_lokaciju);
         locationButton.setOnClickListener(this);
 
 

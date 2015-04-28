@@ -6,5 +6,39 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Title_text_style_1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">72dp</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">72dp</item>
+        <item name="android:paddingRight">72dp</item>
+        <item name="android:textColor">@color/black_color</item>
+        <item name="android:background">@color/white_color</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Text_style_2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">72dp</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">72dp</item>
+        <item name="android:paddingRight">72dp</item>
+        <item name="android:textColor">@color/black_color</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Buttons_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:checked">false</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:text"></item>
+        <item name="android:textOff"></item>
+        <item name="android:textOn"></item>
+    </style>
+
 
 </resources>

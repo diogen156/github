@@ -3,83 +3,72 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_centerVertical="true"
-    android:layout_centerHorizontal="true"
     android:background="#00FFFFFF"
     android:weightSum="1">
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_above="@+id/plan_button_layout"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp">
+
+
+   <com.example.marko.zagreen.SquareToggleButton
+       android:id="@+id/pokazi_lokaciju"
+       style="@style/Buttons_style"
+       android:layout_marginRight="32dp"
+       android:background="@drawable/bt_showlocation_press_unpress"/>
+
+    <com.example.marko.zagreen.SquareToggleButton
+        android:enabled="false"
+        android:visibility="invisible"
+        android:layout_marginRight="32dp"
+        style="@style/Buttons_style"/>
+    <com.example.marko.zagreen.SquareToggleButton
+        android:enabled="false"
+        android:visibility="invisible"
+        android:layout_marginRight="32dp"
+        style="@style/Buttons_style"/>
+    <com.example.marko.zagreen.SquareToggleButton
+        android:enabled="false"
+        android:visibility="invisible"
+        style="@style/Buttons_style"/>
+
+
+</LinearLayout>
+
+
     <LinearLayout
+        android:id="@+id/plan_button_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:id="@+id/linearLayout1">
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
 
         <com.example.marko.zagreen.SquareToggleButton
-            android:id="@+id/plant_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="plant \nbutton"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/round_button" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout"
-        android:layout_above="@+id/linearLayout1">
-
-
+            android:id="@+id/plan_button"
+            android:background="@drawable/bt_grow_press_unpress"
+            android:layout_marginRight="32dp"
+            style="@style/Buttons_style"/>
         <com.example.marko.zagreen.SquareToggleButton
-            android:id="@+id/pokazi_lokaciju"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/round_button"
-            android:text="prikazi \nlokaciju"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </LinearLayout>
-
+            android:enabled="false"
+            android:visibility="invisible"
+            android:layout_marginRight="32dp"
+            style="@style/Buttons_style"/>
+        <com.example.marko.zagreen.SquareToggleButton
+            android:enabled="false"
+            android:visibility="invisible"
+            android:layout_marginRight="32dp"
+            style="@style/Buttons_style"/>
+        <com.example.marko.zagreen.SquareToggleButton
+            android:enabled="false"
+            android:visibility="invisible"
+            style="@style/Buttons_style"/>
+        </LinearLayout>
 
 </RelativeLayout>

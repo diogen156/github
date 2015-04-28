@@ -9,34 +9,34 @@
     android:background="#00FFFFFF"
     android:weightSum="1">
 
+    <fragment
+        android:id="@+id/mapView"
+        android:name="com.google.android.gms.maps.MapFragment"
+        map:cameraTargetLat="45.8144400"
+        map:cameraTargetLng="15.9779800"
+        map:cameraZoom="13"
+        map:uiZoomControls="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <FrameLayout
         android:id="@+id/menu_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
 
+    </FrameLayout>
 
-        <fragment
-            android:id="@+id/mapView"
-            android:name="com.google.android.gms.maps.MapFragment"
-            map:cameraTargetLat="45.8144400"
-            map:cameraTargetLng="15.9779800"
-            map:cameraZoom="13"
-            map:uiZoomControls="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-
-        <FrameLayout
-            android:layout_marginTop="120dp"
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/transparent">
-
-        </FrameLayout>
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/menu_container"
+        android:background="@android:color/transparent">
 
     </FrameLayout>
+
+
 
 </RelativeLayout>
 

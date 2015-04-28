@@ -3,4 +3,9 @@
     <color name="frame">#b4b4b4</color>
     <color name="frame_solid">#eee</color>
     <color name="frame_background">#bcbcbc</color>
+    <color name="main_green_color">#4CAF50</color>
+    <color name="white_color">#FFFFFF</color>
+    <color name="black_color">#000000</color>
+    <color name="blue_advice_color">#E8F5E9</color>
+
 </resources>
