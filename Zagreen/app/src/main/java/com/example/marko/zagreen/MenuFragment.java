@@ -27,7 +27,8 @@ public class MenuFragment extends Fragment {
         view.setBackgroundColor(Color.TRANSPARENT);
 
         frag = new FragmentMapButtons();
-        fragTransaction = getFragmentManager().beginTransaction().add(R.id.container, frag, "FILTRACIJA");
+        fragTransaction = getFragmentManager().beginTransaction()
+                .add(R.id.container, frag, "MAP_BUTTONS");
         fragTransaction.commit();
 
 
@@ -42,7 +43,8 @@ public class MenuFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     frag = new FragmentFiltrationMap();
-                    fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag, "FILTRACIJA");
+                    fragTransaction = getFragmentManager().beginTransaction()
+                            .replace(R.id.container, frag, "FILTRACIJA");
                     fragTransaction.commit();
                     array[0]=true;
                     stateButtonsOff(information,gamification,settings);
@@ -58,7 +60,8 @@ public class MenuFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     frag = new FragmentAdvices();
-                    fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag, "ADVICES");
+                    fragTransaction = getFragmentManager().beginTransaction()
+                            .replace(R.id.container, frag, "ADVICES");
                     fragTransaction.commit();
                     array[1]=true;
                     stateButtonsOff(gamification,settings,filtration);
@@ -74,7 +77,8 @@ public class MenuFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     frag = new FragmentGamification();
-                    fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag, "GAME");
+                    fragTransaction = getFragmentManager().beginTransaction()
+                            .replace(R.id.container, frag, "GAME");
                     fragTransaction.commit();
                     array[2]=true;
                     stateButtonsOff(settings,filtration,information);
@@ -89,8 +93,9 @@ public class MenuFragment extends Fragment {
         settings.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    frag = new FragmentSettings();
-                    fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag, "SETTINGS");
+                    frag = new FragmentAbout();
+                    fragTransaction = getFragmentManager().beginTransaction()
+                            .replace(R.id.container, frag, "ABOUT");
                     fragTransaction.commit();
                     array[3] = true;
                     stateButtonsOff(filtration,information,gamification);
@@ -107,14 +112,22 @@ public class MenuFragment extends Fragment {
         return view;
     }
 
-
+    /**
+     * Metoda koja postavalja buttone u off stanje
+     * @param bt2 Button koji želimo off
+     * @param bt3 Button koji želimo off
+     * @param bt4 Button koji želimo off
+     */
     public void stateButtonsOff( SquareToggleButton bt2, SquareToggleButton bt3, SquareToggleButton bt4) {
          bt2.setChecked(false);
          bt3.setChecked(false);
          bt4.setChecked(false);
-
     }
 
+    /**
+     * Metoda koja postavlja fragment FragmentMapButtons kada nije uključen nijedan
+     * od menu buttona
+     */
     public void stateMapOn() {
 
         int counter = 0;
@@ -128,11 +141,15 @@ public class MenuFragment extends Fragment {
 
         if(counter == 4){
             frag = new FragmentMapButtons();
-            fragTransaction = getFragmentManager().beginTransaction().replace(R.id.container, frag, "MAP");
+            fragTransaction = getFragmentManager().beginTransaction()
+                    .replace(R.id.container, frag, "MAP");
             fragTransaction.commit();
         }
 
     }
+
+
+
 
 
 

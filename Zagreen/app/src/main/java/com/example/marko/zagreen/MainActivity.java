@@ -1,7 +1,15 @@
 package com.example.marko.zagreen;
 
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -46,16 +54,25 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
 
     Location location;
     private static final LatLng ZAGREB = new LatLng(45.8144400, 15.9779800); // ovo je jedna lokacija
-    // daj mi napisi na koji nacin se iz baze dovlaci, jedan po jedan, sve ?
+
     private LatLng testnoMjesto;
 
     private float latitude,longitude;
+    String vrsta;
     private LatLng mojaLokacija;
     private Marker mojaLokMarker;
     private GoogleMap map;
     Marker markerZG;
     SquareToggleButton prikaziLokaciju;
     GPSTracker gps;
+
+    Context context = getActivity();
+    SharedPreferences sharedPref;
+    List<String> latitudeData = new ArrayList<String>();
+    List<String> longitudeData = new ArrayList<String>();
+    List<String> vrstaData = new ArrayList<String>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,45 +85,12 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
 
         // mapa nebi trebala ovisiti o markerima
         initMap();
+
+        if(isOnline()){
         new lokacije().execute();
+        }
          //tu je bilo stvaranje markera
         map.setOnMarkerClickListener(this); // sluzi za osluskivanje klika na marker
-
-        //nije mi bas jasno ali ok
-
-
-        /*prikaziLokaciju = (SquareButton) findViewById(R.id.pokazi_lokaciju);
-
-        prikaziLokaciju.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // create class object
-                gps = new GPSTracker(MainActivity.this);
-
-                // check if GPS enabled
-                if (gps.canGetLocation()) {
-
-                    double latitude = gps.getLatitude();
-                    double longitude = gps.getLongitude();
-                    mojaLokacija = new LatLng(latitude, longitude);
-
-
-
-                    centerCameraOnLocation(mojaLokacija);
-
-                    Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude +
-                            "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-                } else {
-                    // can't get location
-                    // GPS or Network is not enabled
-                    // Ask user to enable GPS/network in settings
-                    gps.showSettingsAlert();
-                }
-            }
-        });*/
-
-
 
 
       if (savedInstanceState == null) {
@@ -117,12 +101,12 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
 
     } //onCreate
 
-//probaj pokrenuti sad
 
-     // klasa za dohvat podataka ovo
+
+   // klasa za dohvat podataka ovo
     public class lokacije extends AsyncTask<Void, Void, Boolean> {
 
-        String responseBody2;
+        String responseBody2 = "";
 
 
 
@@ -132,7 +116,7 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
             HttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost("http://newtobu.url.ph/zagreen.php");
             List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>();
-            nameValuePair.add(new BasicNameValuePair("point", "staklo"));
+            nameValuePair.add(new BasicNameValuePair("point", "1"));
 
 
             try {
@@ -179,6 +163,15 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
 
                    latitude = Float.valueOf(jObject.getString("latitude"));
                    longitude = Float.valueOf(jObject.getString("longitude"));
+                    vrsta = jObject.getString("vrsta");
+
+                    latitudeData.add(Float.toString(latitude));
+                    longitudeData.add(Float.toString(longitude));
+                    vrstaData.add(vrsta);
+
+
+
+
 
 
                     // ovdje ce poslije testiranja za jedan podatak, biti ubacivanje u polje
@@ -218,6 +211,9 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
         super.onResume();
         map.setMyLocationEnabled(true); //  Google blue radius dot enabled
         map.getUiSettings().setMyLocationButtonEnabled(false); // Google location button disable
+
+
+
 
     }
 
@@ -314,4 +310,24 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
 
         }
     }
+
+
+
+
+    public boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null&& netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
+    }
+
+    public void dataFromDataBaseStorage(List<String> lat, List<String> lon, List<String> vrs){
+        String naziv = "com.example.marko.zagreen";
+        sharedPref = context.getSharedPreferences(
+                getString(com.example.marko.zagreen.PREF_file), Context.MODE_PRIVATE);
+
+    }
+
 }//kraj

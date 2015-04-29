@@ -3,12 +3,14 @@ package com.example.marko.zagreen;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -80,20 +82,31 @@ public class FragmentAdvices extends Fragment {
             /*TextView textView = new TextView(SavedTabsFragment.this.getActivity());
             textView.setText(getGroup(i).toString());*/
             final String groupText = (String) getGroup(i);
-
+            ImageView arrowUp, arrowDown;
             if(view == null){
                 LayoutInflater infalInflater1 = (LayoutInflater) getActivity()
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = infalInflater1.inflate(R.layout.advice_group_view, null);
             }
 
+            arrowUp = (ImageView) view.findViewById(R.id.arrow_up_list);
+            arrowDown = (ImageView) view.findViewById(R.id.arrow_down_list);
+
             if(b)
             {
+
                 view.setBackgroundColor(getResources().getColor(R.color.main_green_color));
+
+                arrowDown.setVisibility(View.INVISIBLE);
+                arrowUp.setVisibility(View.VISIBLE);
+
             }
             else
             {
                 view.setBackgroundColor(getResources().getColor(R.color.white_color));
+
+                arrowDown.setVisibility(View.VISIBLE);
+                arrowUp.setVisibility(View.INVISIBLE);
             }
 
 

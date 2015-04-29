@@ -160,10 +160,11 @@ public class GPSTracker extends Service implements LocationListener {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
         // Setting Dialog Title
-        alertDialog.setTitle("GPS postavke");
+        alertDialog.setTitle("Postavke lokacije");
 
         // Setting Dialog Message GPS is not enabled. Do you want to go to settings menu?
-        alertDialog.setMessage("GPS nije uključen. Uključiti GPS u postavkama?");
+        alertDialog.setMessage("Želite li uključiti pristup Vašoj lokaciji u postavkama?" +
+                " (Potrebno zbog svih funkcionalnosti aplikacije)");
 
         // On pressing Settings button
         alertDialog.setPositiveButton("Postavke", new DialogInterface.OnClickListener() {
@@ -174,7 +175,7 @@ public class GPSTracker extends Service implements LocationListener {
         });
 
         // on pressing cancel button
-        alertDialog.setNegativeButton("Odbij", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton("Ne želim", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }

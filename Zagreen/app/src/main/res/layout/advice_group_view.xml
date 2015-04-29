@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--  item u expandble listi -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:foo="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="72dp"
+    android:background="@color/white_color">
 
-    <TextView
+    <com.example.marko.zagreen.TextViewPlus
         android:id="@+id/group_text_view"
-        style="@style/Text_style_2"/>
+        style="@style/expandable_list_group_style"
+        foo:customFont="SinkinSans-400Regular.ttf" />
+
+    <ImageView
+        android:id="@+id/arrow_down_list"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/arrow_down_mdpi"/>
+
+    <ImageView
+        android:id="@+id/arrow_up_list"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/arrow_up_mdpi"/>
 
 </RelativeLayout>

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:foo="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@color/white_color"
     android:orientation="vertical">
-    
+
+
+    <!-- zaglavlje -->
     <RelativeLayout
         android:id="@+id/title_text"
         android:layout_width="match_parent"
@@ -18,25 +19,26 @@
             android:id="@+id/filtration_text_title"
             style="@style/Title_text_style_1"
             android:text="Korisni savjeti"
-            foo:customFont="SinkinSans-400Regular.ttf"/>
+            foo:customFont="SinkinSans-400Regular.ttf" />
 
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
-            android:padding="12dp"
-            android:layout_marginRight="16dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/arrow_back_mdpi"/>
+            android:layout_marginRight="16dp"
+            android:padding="12dp"
+            android:src="@drawable/arrow_back_mdpi" />
 
     </RelativeLayout>
 
+    <!-- sadžaj -->
     <ExpandableListView
         android:id="@+id/list"
-        android:layout_below="@+id/title_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:groupIndicator="@drawable/advice_expandable_list_icon"
-        android:indicatorLeft="16dp"/>
-
+        android:layout_below="@+id/title_text"
+        android:groupIndicator="@null"
+        android:indicatorLeft="16dp" />
+    <!--android:groupIndicator="@drawable/advice_expandable_list_icon"-->
 </RelativeLayout>

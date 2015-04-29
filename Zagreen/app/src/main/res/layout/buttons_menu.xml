@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-
+    <!-- menu gumbovi -->
     <com.example.marko.zagreen.SquareToggleButton
         android:id="@+id/filtrationButton"
         android:background="@drawable/bt_filtration_press_unpress"

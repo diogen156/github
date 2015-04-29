@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:foo="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@color/white_color"
     android:orientation="vertical">
 
+    <!-- zaglavlje -->
     <RelativeLayout
-        android:id="@+id/tile_filtracija_layout"
+        android:id="@+id/title_filtracija_layout"
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:background="@drawable/shadow_9patch"
@@ -28,6 +28,20 @@
             android:layout_marginRight="16dp"
             android:padding="12dp"
             android:src="@drawable/arrow_back_mdpi" />
+    </RelativeLayout>
+
+    <!-- sadžaj -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_filtracija_layout">
+
+
+        <include
+            android:id="@+id/filtration_adapter_include"
+            layout="@layout/filtration_adapter" />
+
+
     </RelativeLayout>
 
 </RelativeLayout>

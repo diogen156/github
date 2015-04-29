@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:foo="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@color/white_color"
     android:orientation="vertical">
 
+    <!-- zaglavlje -->
     <RelativeLayout
         android:id="@+id/tile_game_layout"
         android:layout_width="match_parent"
@@ -30,9 +30,14 @@
             android:src="@drawable/arrow_back_mdpi" />
     </RelativeLayout>
 
+    <!-- sadžaj -->
 
 
-
+    <ImageView
+        android:layout_below="@id/tile_game_layout"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@drawable/zeleni_krug"/>
 
 
 </RelativeLayout>
