@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:foo="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.marko.zagreen.TextViewPlus
+        android:id="@+id/papir"
+        style="@style/list_text_style"
+        android:text="Papir"
+        foo:customFont="SinkinSans-400Regular.ttf"/>
+
+
+    <com.example.marko.zagreen.TextViewPlus
+        android:id="@+id/staklo"
+        style="@style/list_text_style"
+        android:text="Staklo"
+        android:layout_below="@id/papir"
+        foo:customFont="SinkinSans-400Regular.ttf"/>
+
+    <com.example.marko.zagreen.TextViewPlus
+        android:id="@+id/plastika"
+        style="@style/list_text_style"
+        android:text="Plastika"
+        android:layout_below="@id/staklo"
+        foo:customFont="SinkinSans-400Regular.ttf"/>
+
+    <com.example.marko.zagreen.TextViewPlus
+        android:id="@+id/dvoriste"
+        style="@style/list_text_style"
+        android:text="Reciklažno dvorište"
+        android:layout_below="@id/plastika"
+        foo:customFont="SinkinSans-400Regular.ttf"/>
+
+    <CheckBox
+        android:id="@+id/papir_check"
+        style="@style/check_box_style">
+    </CheckBox>
+
+    <CheckBox
+        android:id="@+id/staklo_check"
+        android:layout_below="@id/papir_check"
+        style="@style/check_box_style" >
+    </CheckBox>
+
+    <CheckBox
+        android:id="@+id/plastika_check"
+        android:layout_below="@id/staklo_check"
+        style="@style/check_box_style">
+    </CheckBox>
+
+    <CheckBox
+        android:id="@+id/dvoriste_check"
+        android:layout_below="@id/plastika_check"
+        style="@style/check_box_style">
+    </CheckBox>
+
+    <ImageView
+        android:id="@+id/papir_oznaka"
+        android:src="@drawable/dot_blue"
+        style="@style/dot_style"/>
+
+    <ImageView
+        android:id="@+id/staklo_oznaka"
+        android:layout_below="@id/papir_oznaka"
+        android:src="@drawable/dot_green"
+        style="@style/dot_style"/>
+
+    <ImageView
+        android:id="@+id/plastika_oznaka"
+        android:layout_below="@id/staklo_oznaka"
+        android:src="@drawable/dot_yellow"
+        style="@style/dot_style"/>
+
+    <ImageView
+        android:id="@+id/dvoriste_oznaka"
+        android:layout_below="@id/plastika_oznaka"
+        android:src="@drawable/dot_red"
+        style="@style/dot_style"/>
+
+</RelativeLayout>
