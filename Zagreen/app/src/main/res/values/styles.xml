@@ -92,11 +92,11 @@
     </style>
 
     <style name="dot_style">
-        <item name="android:layout_width">32dp</item>
-        <item name="android:layout_height">32dp</item>
+        <item name="android:layout_width">16dp</item>
+        <item name="android:layout_height">16dp</item>
         <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:layout_marginTop">20dp</item>
-        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:layout_marginTop">28dp</item>
+        <item name="android:layout_marginBottom">28dp</item>
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:button">@drawable/custom_checkbox</item>
     </style>

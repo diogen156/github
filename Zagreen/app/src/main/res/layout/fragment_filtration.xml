@@ -30,6 +30,10 @@
             android:src="@drawable/arrow_back_mdpi" />
     </RelativeLayout>
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/title_filtracija_layout">
     <!-- sadžaj -->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,5 +47,6 @@
 
 
     </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

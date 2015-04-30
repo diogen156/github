@@ -14,7 +14,7 @@ public class FragmentMapButtons extends Fragment implements View.OnClickListener
     //SquareToggleButton plantButton;
     SquareToggleButton locationButton;
     boolean locationButtonState = false;
-    ButtonStateFragmentMapButtons respond;
+    ButtonStateInterface respond;
 
 
     public FragmentMapButtons() {
@@ -36,9 +36,7 @@ public class FragmentMapButtons extends Fragment implements View.OnClickListener
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        respond = (ButtonStateFragmentMapButtons) getActivity();
-        locationButton = (SquareToggleButton) getActivity().findViewById(R.id.pokazi_lokaciju);
-
+        respond = (ButtonStateInterface) getActivity();
     }
 
     @Override

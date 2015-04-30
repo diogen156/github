@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 
 /**
@@ -18,6 +19,7 @@ public class MenuFragment extends Fragment {
     Fragment frag;
     FragmentTransaction fragTransaction;
     boolean[] array = new boolean[4];
+    ButtonStateInterface respondFiltrationButton;
 
 
     @Override
@@ -30,7 +32,6 @@ public class MenuFragment extends Fragment {
         fragTransaction = getFragmentManager().beginTransaction()
                 .add(R.id.container, frag, "MAP_BUTTONS");
         fragTransaction.commit();
-
 
         final SquareToggleButton filtration = (SquareToggleButton) view.findViewById(R.id.filtrationButton);
         final SquareToggleButton information = (SquareToggleButton) view.findViewById(R.id.informationButton);
@@ -48,6 +49,7 @@ public class MenuFragment extends Fragment {
                     fragTransaction.commit();
                     array[0]=true;
                     stateButtonsOff(information,gamification,settings);
+                    //respondFiltrationButton.getFiltrationButtonState(array[0]);//nadodano
                 } else if (!isChecked) {
                     array[0]=false;
                    // stateButtonsOn(information,gamification,settings);
@@ -90,6 +92,7 @@ public class MenuFragment extends Fragment {
             }
         });
 
+
         settings.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -111,6 +114,12 @@ public class MenuFragment extends Fragment {
 
         return view;
     }
+
+   /* @Override
+    public void onActivityCreated(Bundle savedInstanceState) {//nadodano
+        super.onActivityCreated(savedInstanceState);
+        respondFiltrationButton = (ButtonStateInterface)getActivity();
+    }*/
 
     /**
      * Metoda koja postavalja buttone u off stanje
@@ -147,6 +156,7 @@ public class MenuFragment extends Fragment {
         }
 
     }
+
 
 
 

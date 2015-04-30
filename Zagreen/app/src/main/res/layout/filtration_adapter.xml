@@ -26,10 +26,17 @@
         foo:customFont="SinkinSans-400Regular.ttf"/>
 
     <com.example.marko.zagreen.TextViewPlus
+        android:id="@+id/tekstil"
+        style="@style/list_text_style"
+        android:text="Tekstil"
+        android:layout_below="@id/plastika"
+        foo:customFont="SinkinSans-400Regular.ttf"/>
+
+    <com.example.marko.zagreen.TextViewPlus
         android:id="@+id/dvoriste"
         style="@style/list_text_style"
         android:text="Reciklažno dvorište"
-        android:layout_below="@id/plastika"
+        android:layout_below="@id/tekstil"
         foo:customFont="SinkinSans-400Regular.ttf"/>
 
     <CheckBox
@@ -50,32 +57,44 @@
     </CheckBox>
 
     <CheckBox
-        android:id="@+id/dvoriste_check"
+        android:id="@+id/tekstil_check"
         android:layout_below="@id/plastika_check"
+        style="@style/check_box_style">
+    </CheckBox>
+
+    <CheckBox
+        android:id="@+id/dvoriste_check"
+        android:layout_below="@id/tekstil_check"
         style="@style/check_box_style">
     </CheckBox>
 
     <ImageView
         android:id="@+id/papir_oznaka"
-        android:src="@drawable/dot_blue"
+        android:src="@drawable/color_blue_mdpi"
         style="@style/dot_style"/>
 
     <ImageView
         android:id="@+id/staklo_oznaka"
         android:layout_below="@id/papir_oznaka"
-        android:src="@drawable/dot_green"
+        android:src="@drawable/color_green_mdpi"
         style="@style/dot_style"/>
 
     <ImageView
         android:id="@+id/plastika_oznaka"
         android:layout_below="@id/staklo_oznaka"
-        android:src="@drawable/dot_yellow"
+        android:src="@drawable/color_yellow_mdpi"
+        style="@style/dot_style"/>
+
+    <ImageView
+        android:id="@+id/tekstil_oznaka"
+        android:layout_below="@id/plastika_oznaka"
+        android:src="@drawable/color_purple_mdpi"
         style="@style/dot_style"/>
 
     <ImageView
         android:id="@+id/dvoriste_oznaka"
-        android:layout_below="@id/plastika_oznaka"
-        android:src="@drawable/dot_red"
+        android:layout_below="@id/tekstil_oznaka"
+        android:src="@drawable/color_red_mdpi"
         style="@style/dot_style"/>
 
 </RelativeLayout>
