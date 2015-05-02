@@ -16,7 +16,10 @@ import java.util.List;
 
 
 /**
- * Created by Marko on 23.4.2015..
+ *
+ * @author Collude
+ * @version 2015.0502
+ * @since 1.0
  */
 public class FragmentFiltrationMap extends Fragment {
 
@@ -46,7 +49,9 @@ public class FragmentFiltrationMap extends Fragment {
 
         MainActivity activity = (MainActivity) getActivity();
         String proba = activity.getMyData();
-       if(proba.contains("truePapir")){
+
+        
+        if(proba.contains("truePapir")){
            papir.setChecked(true);
            papirState = true;//
        }else {

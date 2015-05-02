@@ -10,7 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_above="@+id/plan_button_layout"
+    android:layout_above="@+id/plant_button_layout"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp">
 
@@ -41,7 +41,7 @@
 
 
     <LinearLayout
-        android:id="@+id/plan_button_layout"
+        android:id="@+id/plant_button_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -51,7 +51,7 @@
         android:layout_marginRight="16dp">
 
         <com.example.marko.zagreen.SquareToggleButton
-            android:id="@+id/plan_button"
+            android:id="@+id/plant_button"
             android:background="@drawable/bt_grow_press_unpress"
             android:layout_marginRight="32dp"
             style="@style/Buttons_style"/>

@@ -32,12 +32,92 @@
 
     <!-- sadžaj -->
 
+<RelativeLayout
+    android:id="@+id/game_content_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/tile_game_layout">
+
 
     <ImageView
-        android:layout_below="@id/tile_game_layout"
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:src="@drawable/zeleni_krug"/>
+        android:id="@+id/background_plant_image"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/plavi_krug"
+        android:layout_above="@+id/plant_score_description"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/score_plant_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:paddingLeft="16dp"
+        android:paddingBottom="16dp"
+        android:paddingRight="16dp"
+        android:src="@drawable/zeleni_krug"
+        android:layout_above="@+id/game_bubble"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:id="@+id/game_bubble"
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/bubble_mdpi"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <com.example.marko.zagreen.TextViewPlus
+        android:id="@+id/plant_score_description"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:gravity="left"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:textColor="@color/white_color"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="12sp"/>
+
+    <com.example.marko.zagreen.TextViewPlus
+        android:id="@+id/plant_checkin_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:textSize="25sp"
+        android:textColor="@color/white_color"
+        android:gravity="center"
+        android:layout_alignTop="@+id/score_plant_image"
+        android:layout_alignRight="@+id/score_plant_image"
+        android:layout_alignEnd="@+id/score_plant_image"
+        android:layout_alignBottom="@+id/score_plant_image"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+     <RelativeLayout
+         android:id="@+id/plant_layout"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_centerHorizontal="true"
+         android:paddingBottom="124dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/plant"
+        android:layout_centerHorizontal="true"/>
+
+
+     </RelativeLayout>
+
+</RelativeLayout>
 
 
 </RelativeLayout>

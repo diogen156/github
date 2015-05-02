@@ -1,8 +1,6 @@
 package com.example.marko.zagreen;
 
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.Location;
@@ -11,7 +9,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -43,32 +40,39 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
-
+/**
+ * Klasa koja sadrži podatke za klasu FragmentAdvices, prikazani su u expandable listi.
+ *
+ * @author Collude
+ * @version 2015.0502
+ * @since 1.0
+ */
 public class MainActivity extends Activity implements OnMarkerClickListener,
         ButtonStateInterface {
 
     boolean papirStateActivity, stakloStateActivity, plastikaStateActivity,
             tekstilStateActivity, reciklaznoDvoristeStateActivity;
 
-    Location location;
-    private static final LatLng ZAGREB = new LatLng(45.8144400, 15.9779800); // ovo je jedna lokacija
-
-    private LatLng testnoMjesto;
 
     private float latitude, longitude;
     String vrsta;
     private LatLng mojaLokacija;
-    private Marker mojaLokMarker;
     private GoogleMap map;
 
     Marker papir, staklo, plastika, tekstil, reciklaznoDvoriste;
-    Marker markerZG;
 
-    List<String> oznakaVrste = new ArrayList<String>();
-    String markerTitlePapir = "Papir", markerTitleStaklo = "Staklo", markerTitlePlastika = "Plastika", markerTitleTekstil = "Tekstil", markerTitleReciklažnoDvorište = "Reciklažno dvorište";
+
+
+    String markerTitlePapir = "Papir", markerTitleStaklo = "Staklo",
+            markerTitlePlastika = "Plastika", markerTitleTekstil = "Tekstil",
+            markerTitleReciklažnoDvorište = "Reciklažno dvorište";
     LatLng markerPlace;
     float markerLat, markerLng;
 
@@ -76,9 +80,13 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
     SquareToggleButton prikaziLokaciju;
     GPSTracker gps;
 
-    List<Float> latitudeDataTest = new ArrayList<Float>();
-    List<Float> longitudeDataTest = new ArrayList<Float>();
-    List<String> myFragmentFiltratonStates = null;
+
+    List<Float> minDistance = new ArrayList<Float>();
+    int checkInCounter = 0;
+    int checkStateNubmber;
+    int locationStateNubmber;
+    int pozicijaNajblizegKontenjera;
+    List<String> listaVremena = new ArrayList<String>();
 
 
     //Grupa podataka za latitude za zapisivanje iz bazu u aplikaciju i iz aplikaciju za daljnje operacije
@@ -105,16 +113,13 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-//        myFragmentFiltratonStates.add("ss");
-        // mapa nebi trebala ovisiti o markerima
         initMap();
 
         if (isOnline()) {
             new lokacije().execute();
 
         } else if (!isOnline()) {
-            Log.d("testno mjesto", "OVOje izvrsilo else");
+
             latitudeAppData = loadArray("latDataBase", MainActivity.this, nameArrayLatitude);
             for (int n = 0; n < latitudeAppData.size(); n++) {
                 Log.d("tag", latitudeAppData.get(n));
@@ -122,21 +127,6 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
 
         }
 
-
-        Location loc1 = new Location("");
-        loc1.setLatitude(45.8080);
-        loc1.setLongitude(15.1584);
-
-        Location loc2 = new Location("");
-        loc2.setLatitude(45.8777);
-        loc2.setLongitude(15.4263);
-
-        float distanceInMeters = loc1.distanceTo(loc2);
-
-        Log.d("UDALJENOSTI JE OVA : ", Float.toString(distanceInMeters));
-
-
-        //tu je bilo stvaranje markera
         map.setOnMarkerClickListener(this); // sluzi za osluskivanje klika na marker
 
 
@@ -151,10 +141,15 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
         // set Fragmentclass Arguments
         MenuFragment fragobj = new MenuFragment();
         fragobj.setArguments(bundle);
-    } //onCreate
+    }
 
-
-    // klasa za dohvat podataka ovo
+    /**
+     * Klasa koja sadrži metode za dohvaćanje podataka iz online baze
+     *
+     * @author Collude
+     * @version 2015.0502
+     * @since 1.0
+     */
     public class lokacije extends AsyncTask<Void, Void, Boolean> {
 
         String responseBody2 = "";
@@ -217,18 +212,16 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
                     longitudeDataBase.add(Float.toString(longitude));
                     vrstaDataBase.add(vrsta);
 
-                    latitudeDataTest.add(latitude);
-                    longitudeDataTest.add(longitude);
 
 
                     Log.e("latitude: ", Float.toString(latitude) + "longitude:" + Float.toString(longitude));
 
-                } // End Loop
+                }
 
-
-                pokaziOdredeneMarker(latitudeDataTest, longitudeDataTest);
 
                 // spremaju se svi clanovi latitude,longitude iz liste baze podataka u aplikaciju
+
+
                 saveArray(latitudeDataBase, nameBaseTermMemberLat, MainActivity.this, nameArrayLatitude);
                 saveArray(longitudeDataBase, nameBaseTermMemberLng, MainActivity.this, nameArrayLongitude);
                 saveArray(vrstaDataBase, nameBaseTermMemberVrs, MainActivity.this, nameArrayVrsta);
@@ -260,12 +253,6 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
                 Log.e("JSONException", "Error: " + e.toString());
             } // catch (JSONException e)
         } // protected void onPostExecute(Void v)
-    }
-
-
-    public void getLocationData(float lat, float lon) {
-
-
     }
 
 
@@ -324,13 +311,7 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
                 .icon(markerIcon));
     }
 
-    /**
-     * Metoda koja prilikom pritiska na marker pokazuje natpis iznad markera i izbacuje poruku
-     * na ekranu.
-     *
-     * @param marker ulazni parametar je marker
-     * @return True - želim hendlat event.
-     */
+
     @Override
     public boolean onMarkerClick(Marker marker) {
         marker.showInfoWindow(); //pokazuje natpis iznad markera
@@ -339,39 +320,9 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
         return true; // hendlam event i ne pojavljuju se google smece ikone (koje mogu biti korisne u nekoj primjeni)
     }
 
-    //ova metoda prima vrijednost pritiska gumba u FragmentMapButtons i prema njemu trazimo zahtjev za lokacijom
+
     @Override
-    public void getLocationButtonState(boolean state) {
-        if (state) {
-
-            gps = new GPSTracker(MainActivity.this);
-
-            // Provjerava da li je uključen pristup lokaciji
-            if (gps.canGetLocation()) {
-
-                double latitude = gps.getLatitude();
-                double longitude = gps.getLongitude();
-                mojaLokacija = new LatLng(latitude, longitude);
-
-                //addMyMarker(mojaLokacija,mojaLokMarker);
-
-//sto trazis ?
-                centerCameraOnLocation(mojaLokacija);
-
-                Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude +
-                        "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-            } else {
-                // ne može dobiti lokaciju
-                // GPS ili Network pristup nisu uključeni
-                // Pita korisnika za uključenje kroz postavke
-                gps.showSettingsAlert();
-            }
-
-
-        }
-    }
-
-    @Override //kada se promjeni stanje u metodi u fragmentu ovaj MainActivity implementira interface
+    //kada se promjeni stanje u metodi u fragmentu ovaj MainActivity implementira interface
     // i vrijednosti se prenose ovdje
     public void getCheckBoxChangeState(boolean papirState, boolean stakloState,
                                        boolean plastikaState, boolean tekstilState,
@@ -386,32 +337,9 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
 
         setMarkersOnMap(papirState, stakloState, plastikaState, tekstilState,
                 reciklaznoDvoristeState, vrstaAppData);
-        //ček da istestiram još
-
-     /*   myFragmentFiltratonStates.add(Boolean.toString(stakloStateActivity));
-        myFragmentFiltratonStates.add(Boolean.toString(plastikaStateActivity));
-        myFragmentFiltratonStates.add(Boolean.toString(tekstilStateActivity));
-        myFragmentFiltratonStates.add(Boolean.toString(reciklaznoDvoristeStateActivity));*/
-
-               /* Toast.makeText(getApplicationContext(),"checkPapir:"+papirStateActivity+"\nstaklo: "
-                        + stakloStateActivity+"\nplastika: "+plastikaStateActivity+
-                        "\ntekstil: "+tekstilStateActivity+"\ndvoriste: " +reciklaznoDvoristeStateActivity
-                        , Toast.LENGTH_LONG).show();*/
-
-//nećemo se tak zajebavat :) napravit ćemo par funkcija da vidimo jel sve radi
-
-
-
 
     }
 
-
-    public void pokaziOdredeneMarker(List<Float> lat, List<Float> lng) {
-        for (int i = 0; i < lat.size(); i++) {
-            testnoMjesto = new LatLng(lat.get(i).floatValue(), lng.get(i).floatValue());
-            //addMyMarker(testnoMjesto, markerZG);
-        }
-    }
 
     /**
      * Metoda koja provjerava da li je internet ukljucen, potrebno radi hendlanja podataka iz baze
@@ -465,18 +393,20 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
         return array;
     }
 
+    /**
+     * Dodjeljuje ikonu, natpis svakom markeru na karti i postavlja ih na mapu, osvježava stanje karte
+     * @param papirState
+     * @param stakloState
+     * @param plastikaState
+     * @param tekstilState
+     * @param reciklaznoDvoristeState
+     * @param vrsta
+     */
     public void setMarkersOnMap(boolean papirState, boolean stakloState,
                                 boolean plastikaState, boolean tekstilState,
                                 boolean reciklaznoDvoristeState, List<String> vrsta) {
 
-        /*oznakaVrste.add("PA");
-        oznakaVrste.add("PA-PL");
-        oznakaVrste.add("PA-ST");
-        oznakaVrste.add("PA-ST-PL");
-        oznakaVrste.add("PA-ST-PL-TEKSTIL");
-        oznakaVrste.add("PL");
-        oznakaVrste.add("Reciklažno dvorište");
-        oznakaVrste.add("ST");*/
+
         BitmapDescriptor markerIconPapir = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE),
                 markerIconStaklo = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN),
                 markerIconPlastika = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW),
@@ -546,7 +476,13 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
 
     }
 
-
+    /**
+     * Razdjeljuje markere na karti zbog preklapanja
+     *
+     * @param i
+     * @param sadrži
+     * @return
+     */
     public LatLng prepareDataTypeForLocation(int i, int sadrži) {
         int sad = sadrži;
         markerLat = Float.parseFloat(latitudeAppData.get(i));
@@ -577,32 +513,209 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
 
     }
 
-    @Override
-    public void getFiltrationButtonState(boolean state) {
-
-        /*if(state){
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("papirStanje",papirStateActivity);
-        // set Fragmentclass Arguments
-        FragmentFiltrationMap fragobj = new FragmentFiltrationMap();
-        fragobj.setArguments(bundle);}
-        FragmentManager manager = getFragmentManager();
-        Fragment f = new FragmentFiltrationMap();
-        f.getFragmentManager().findFragmentByTag("FILTRACIJA");
-        f.setArguments();
-        //Fragment f= (FragmentFiltrationMap) manager.findFragmentByTag("FILTRACIJA");
-        f.updateCheckBoxStates(papirStateActivity,stakloStateActivity,plastikaStateActivity,
-                tekstilStateActivity,reciklaznoDvoristeStateActivity);
-        //Toast.makeText(getApplicationContext(), "papir: " + papirStateActivity,
-        // Toast.LENGTH_LONG).show();*/
-    }
-
+    /**
+     * Prenosi vrijednosti checkboxova u klasu FragmentFiltrationMap
+     * @return
+     */
     public String getMyData() {
 
-        return Boolean.toString(papirStateActivity)+"Papir"+Boolean.toString(stakloStateActivity)+"Staklo"
-                +Boolean.toString(plastikaStateActivity)+"Plastika"+Boolean.toString(tekstilStateActivity)+"Tekstil"
-                +Boolean.toString(reciklaznoDvoristeStateActivity)+"Dvoriste";
+        return Boolean.toString(papirStateActivity) + "Papir" + Boolean.toString(stakloStateActivity) + "Staklo"
+                + Boolean.toString(plastikaStateActivity) + "Plastika" + Boolean.toString(tekstilStateActivity) + "Tekstil"
+                + Boolean.toString(reciklaznoDvoristeStateActivity) + "Dvoriste";
 
-    } // mogu provjravat string truePrvi ili falsePrvi itd..da
+    }
 
-}//kraj
+    /**
+     * Vraća index elementa u polju, a on je najmanja udaljenost između lokacije i najbližeg markera
+     * @param lat latitude
+     * @param lng longitude
+     * @return index elemnta
+     */
+    public int getNearestMarker(double lat, double lng) {
+
+
+        int minIndex = 0;
+
+
+        Location loc1 = new Location(""); // trenutna lokacija
+        loc1.setLatitude(lat);
+        loc1.setLongitude(lng);
+
+        Location loc2 = new Location(""); //lokacija markera
+
+        float distanceInMeters;
+
+        for (int i = 0; i < latitudeAppData.size(); i++) {
+
+            loc2.setLatitude(Float.parseFloat(latitudeAppData.get(i)));
+            loc2.setLongitude(Float.parseFloat(longitudeAppData.get(i)));
+            minDistance.add(loc1.distanceTo(loc2));
+            Log.d("LOKACIJA: " + i, Float.toString(loc1.distanceTo(loc2)));
+
+        }
+
+
+        minIndex = minDistance.indexOf(Collections.min(minDistance));
+
+        return minIndex;
+    }
+
+    /**
+     * Predaje vrijednost countera u FragmentGamification klasu
+     * @return broj checkinova
+     */
+    public int getMyPlantCheckInCounter() {
+
+        return checkInCounter;
+
+    }
+
+    @Override
+    public void getCheckInButtonState(boolean state) { //prilikom klika se poziva 2x vazno zbog countera
+        checkStateNubmber++;
+
+
+
+        if (checkStateNubmber == 1) {
+            logicForPlantGrow();
+        } else if (checkStateNubmber > 1) {
+            checkStateNubmber = 0;
+        }
+
+    }
+
+
+    @Override
+    public void getLocationButtonState(boolean state) {
+        locationStateNubmber++;
+        // u ovoj metodi pronalazimo lokaciju korisnika i centriramo pogled na lokaciju
+        // ukoliko GPS nije uključen pojavit će se alert dialog
+        if (state) {
+            gps = new GPSTracker(MainActivity.this);
+
+            // Provjerava da li je uključen pristup lokaciji
+            if (gps.canGetLocation()) {
+
+                double latitude = gps.getLatitude();
+                double longitude = gps.getLongitude();
+                mojaLokacija = new LatLng(latitude, longitude);
+
+
+                if (latitude != 0 && longitude != 0) {
+                    pozicijaNajblizegKontenjera = getNearestMarker(latitude, longitude);
+                    Log.d("MINIMALNA: ", Integer.toString(getNearestMarker(latitude, longitude)));
+                }
+
+                centerCameraOnLocation(mojaLokacija);
+
+                Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude +
+                        "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+            } else {
+                // ne može dobiti lokaciju
+                // GPS ili Network pristup nisu uključeni
+                // Pita korisnika za uključenje kroz postavke
+
+                if (locationStateNubmber == 1) {
+                    gps.showSettingsAlert();
+                } else if (locationStateNubmber > 1) {
+                    locationStateNubmber = 0;
+                }
+            }
+
+
+        }
+    }
+
+    /**
+     * Definira logiku postavljanja listića na biljci
+     */
+    public void logicForPlantGrow() {
+
+        if (minDistance.size() != 0) {
+
+            float udaljenostNajblizegKontenjara = minDistance.get(pozicijaNajblizegKontenjera);
+
+
+            // uvjet za vrijeme i udaljenost za check in
+            if (udaljenostNajblizegKontenjara < 25 && timeBetweenCheckIns()) {
+                checkInCounter++;
+                getMyPlantCheckInCounter();
+            }
+        } else {
+
+            Toast.makeText(getApplicationContext(), "Molimo dohvatite svoju lokaciju pritiskom na gumb " +
+                    "iznad.", Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
+    /**
+     * Računa vrijeme između dva checkina
+     * @return true ako je uvjet zadovoljen
+     */
+    public boolean timeBetweenCheckIns() {
+
+        boolean returnValue = false;
+
+        listaVremena.add(0, "početak");
+
+        if ((listaVremena.get(listaVremena.size() - 1)).equalsIgnoreCase("početak")) {
+            String firstEverTime = DateFormat.getDateTimeInstance().format(new Date());
+            listaVremena.add(firstEverTime);
+
+            returnValue = true;
+
+        } else if (listaVremena.size() < 50) {
+
+
+            String dateStart = listaVremena.get(listaVremena.size() - 1);
+
+
+            String dateStop = DateFormat.getDateTimeInstance().format(new Date());
+
+
+            SimpleDateFormat myformat = new SimpleDateFormat("dd.mm.yyyy. HH:mm:ss");
+            Date d1 = null;
+            Date d2 = null;
+
+            try {
+
+                Toast.makeText(getApplicationContext(), "try", Toast.LENGTH_LONG).show();
+                d1 = myformat.parse(dateStart);
+                d2 = myformat.parse(dateStop);
+
+                //u milisekundama
+                long diff = d2.getTime() - d1.getTime();
+
+                long diffSeconds = diff / 1000 % 60;
+                long diffMinutes = diff / (60 * 1000) % 60;
+                long diffHours = diff / (60 * 60 * 1000) % 24;
+                long diffDays = diff / (24 * 60 * 60 * 1000);
+
+
+                if (diffDays > 0) {
+                    listaVremena.add(dateStop);
+                    returnValue = true;
+                } else if (diffHours > 0) {
+
+                    listaVremena.add(dateStop);
+                    returnValue = true;
+                } else {
+                    Toast.makeText(getApplicationContext(), "Vremenski razmak između dva checkina " +
+                            "mora biti najmanje 1h.", Toast.LENGTH_LONG).show();
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        return returnValue;
+    }
+
+
+}

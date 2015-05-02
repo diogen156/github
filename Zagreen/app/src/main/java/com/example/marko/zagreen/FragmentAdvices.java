@@ -3,7 +3,6 @@ package com.example.marko.zagreen;
 
 import android.app.Fragment;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Pieced together from:
- * Android samples: com.example.android.apis.view.ExpandableList1
- * http://androidword.blogspot.com/2012/01/how-to-use-expandablelistview.html
- * http://stackoverflow.com/questions/6938560/android-fragments-setcontentview-alternative
- * http://stackoverflow.com/questions/6495898/findviewbyid-in-fragment-android
+ * Klasa koja prikazuje korisne savjete u expandable listi.
+ *
+ * @author Collude
+ * @version 2015.0502
+ * @since 1.0
  */
 public class FragmentAdvices extends Fragment {
 
@@ -30,16 +29,19 @@ public class FragmentAdvices extends Fragment {
         return v;
     }
 
+    /**
+     * Klasa koja sadrži metode za upravljanje expandable listom
+     *
+     * @author Collude
+     * @version 2015.0502
+     * @since 1.0
+     */
     public class SavedTabsListAdapter extends BaseExpandableListAdapter {
 
 
         AdviceData varijable = new AdviceData();
         private String[][] children = varijable.getChildrenData();
         private String[] groups = varijable.getGroupsData();
-        private Context _context;
-
-
-
 
 
         @Override
@@ -79,11 +81,9 @@ public class FragmentAdvices extends Fragment {
 
         @Override
         public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
-            /*TextView textView = new TextView(SavedTabsFragment.this.getActivity());
-            textView.setText(getGroup(i).toString());*/
             final String groupText = (String) getGroup(i);
             ImageView arrowUp, arrowDown;
-            if(view == null){
+            if (view == null) {
                 LayoutInflater infalInflater1 = (LayoutInflater) getActivity()
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = infalInflater1.inflate(R.layout.advice_group_view, null);
@@ -92,17 +92,15 @@ public class FragmentAdvices extends Fragment {
             arrowUp = (ImageView) view.findViewById(R.id.arrow_up_list);
             arrowDown = (ImageView) view.findViewById(R.id.arrow_down_list);
 
-            if(b)
-            {
+            // upravljanje strelicama u expandable listi naslovima
+            if (b) {
 
                 view.setBackgroundColor(getResources().getColor(R.color.main_green_color));
 
                 arrowDown.setVisibility(View.INVISIBLE);
                 arrowUp.setVisibility(View.VISIBLE);
 
-            }
-            else
-            {
+            } else {
                 view.setBackgroundColor(getResources().getColor(R.color.white_color));
 
                 arrowDown.setVisibility(View.VISIBLE);
@@ -118,11 +116,9 @@ public class FragmentAdvices extends Fragment {
 
         @Override
         public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-            /*TextView textView = new TextView(SavedTabsFragment.this.getActivity());
-            textView.setText(getChild(i, i1).toString());
-            textView.setPadding(10,0,0,0);*/
 
-            final String childText = (String) getChild(i,i1);
+
+            final String childText = (String) getChild(i, i1);
 
             if (view == null) {
                 LayoutInflater infalInflater2 = (LayoutInflater) getActivity()

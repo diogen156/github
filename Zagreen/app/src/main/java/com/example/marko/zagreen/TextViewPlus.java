@@ -9,10 +9,12 @@ import android.util.Log;
 import android.widget.TextView;
 
 /**
- * Created by Marko on 28.4.2015..
+ * Klasa koja postavlja font teksta
+ *
+ * @author Collude
+ * @version 2015.0502
+ * @since 1.0
  */
-
-
 public class TextViewPlus extends TextView {
     private static final String TAG = "TextView";
 

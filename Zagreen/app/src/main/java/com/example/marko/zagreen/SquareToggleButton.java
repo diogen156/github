@@ -2,12 +2,14 @@ package com.example.marko.zagreen;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ToggleButton;
 
 /**
- * Created by Marko on 24.4.2015..
+ * Klasa koja postavlja dimenzije buttona u kvadratičan oblik
+ *
+ * @author Collude
+ * @version 2015.0502
+ * @since 1.0
  */
 public class SquareToggleButton extends ToggleButton {
 
@@ -29,7 +31,7 @@ public class SquareToggleButton extends ToggleButton {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-        //Get canvas width and height
+
         int w = MeasureSpec.getSize(widthMeasureSpec);
         int h = MeasureSpec.getSize(heightMeasureSpec);
 

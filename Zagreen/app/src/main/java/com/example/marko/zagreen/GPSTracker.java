@@ -1,8 +1,5 @@
 package com.example.marko.zagreen;
 
-/**
- * Created by Marko on 21.4.2015..
- */
 
 import android.app.AlertDialog;
 import android.app.Service;
@@ -19,21 +16,26 @@ import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
+/**
+ * Klasa koja sadrži metode za dohvat korisnikove lokacije
+ *
+ * @author Collude
+ * @version 2015.0502
+ * @since 1.0
+ */
 public class GPSTracker extends Service implements LocationListener {
 
     private final Context mContext;
 
-    // flag for GPS status
+    // zastavica za GPS status
     boolean isGPSEnabled = false;
 
-    // flag for network status
+    // zastavica za network status
     boolean isNetworkEnabled = false;
 
-    // zastavice za GPS status
+    // zastavice za lokaciju
     boolean canGetLocation = false;
 
     Location location; // lokacija
@@ -54,21 +56,26 @@ public class GPSTracker extends Service implements LocationListener {
         getLocation();
     }
 
+    /**
+     * Vraća kordinate trenutne lokacije korisnika
+     *
+     * @return
+     */
     public Location getLocation() {
         try {
             locationManager = (LocationManager) mContext
                     .getSystemService(LOCATION_SERVICE);
 
-            // getting GPS status
+            // dohvaćanje GPS statusa
             isGPSEnabled = locationManager
                     .isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-            // getting network status
+            // dohvaćanje network statusa
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (!isGPSEnabled && !isNetworkEnabled) {
-                // no network provider is enabled
+                // ukoliko nije dostupna lokacija od providera
             } else {
                 this.canGetLocation = true;
                 // First get location from Network Provider //
@@ -87,7 +94,7 @@ public class GPSTracker extends Service implements LocationListener {
                         }
                     }
                 }
-                // if GPS Enabled get lat/long using GPS Services
+                // ukoliko se koristi GPS
                 if (isGPSEnabled) {
                     if (location == null) {
                         locationManager.requestLocationUpdates(
@@ -116,29 +123,33 @@ public class GPSTracker extends Service implements LocationListener {
 
     /**
      * Prestanak korištenja GPS listenera
-     * Pozivanje ove funkcije prestat ce koristiti GPS u vašoj aplikaciji
-     * */
-    public void stopUsingGPS(){
-        if(locationManager != null){
+     * Pozivanje ove metode prestat ce koristiti GPS u korisnikovoj aplikaciji
+     */
+    public void stopUsingGPS() {
+        if (locationManager != null) {
             locationManager.removeUpdates(GPSTracker.this);
         }
     }
 
     /**
-     * Metoda za dobivanje geografske širine
-     * */
-    public double getLatitude(){
-        if(location != null){
+     * Metoda za dohvaćanje geografske širine
+     *
+     * @return latitude
+     */
+    public double getLatitude() {
+        if (location != null) {
             latitude = location.getLatitude();
         }
         return latitude;
     }
 
     /**
-     * Metoda za dobivanje geografske dužine
-     * */
-    public double getLongitude(){
-        if(location != null){
+     * Metoda za dohvaćanje geografske dužine
+     *
+     * @return longitude
+     */
+    public double getLongitude() {
+        if (location != null) {
             longitude = location.getLongitude();
         }
         return longitude;
@@ -146,42 +157,43 @@ public class GPSTracker extends Service implements LocationListener {
 
     /**
      * Metoda za provjeravanje GPS/wifi uključenosti
-     * @return boolean
-     * */
+     *
+     * @return true ako je dostupna lokacija
+     */
     public boolean canGetLocation() {
         return this.canGetLocation;
     }
 
     /**
-     * Metoda pokazuje settings upozoravajući prozor
-     * Na pritisak Settings buttona prebacit će korisnika na Settings Options
-     * */
-    public void showSettingsAlert(){
+     * Metoda pokazuje settings upozoravajući prozor,
+     * na pritisak Settings buttona prebacit će korisnika na Settings Options
+     */
+    public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
-        // Setting Dialog Title
+        // Naslov dialog prozora
         alertDialog.setTitle("Postavke lokacije");
 
-        // Setting Dialog Message GPS is not enabled. Do you want to go to settings menu?
+
         alertDialog.setMessage("Želite li uključiti pristup Vašoj lokaciji u postavkama?" +
                 " (Potrebno zbog svih funkcionalnosti aplikacije)");
 
-        // On pressing Settings button
+        // pritisak na button Postavke
         alertDialog.setPositiveButton("Postavke", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
+            public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
             }
         });
 
-        // on pressing cancel button
+        // pritisak na button Ne želim
         alertDialog.setNegativeButton("Ne želim", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
 
-        // Showing Alert Message
+        // pokazivanje alert dialoga
         alertDialog.show();
     }
 
