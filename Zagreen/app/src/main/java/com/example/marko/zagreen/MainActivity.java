@@ -315,8 +315,7 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
     @Override
     public boolean onMarkerClick(Marker marker) {
         marker.showInfoWindow(); //pokazuje natpis iznad markera
-        Toast.makeText(getApplicationContext(), "Kliknuo si na marker: "
-                + marker.getTitle(), Toast.LENGTH_LONG).show(); //ispisuje poruku na ekranu
+
         return true; // hendlam event i ne pojavljuju se google smece ikone (koje mogu biti korisne u nekoj primjeni)
     }
 
@@ -608,8 +607,7 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
 
                 centerCameraOnLocation(mojaLokacija);
 
-                Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude +
-                        "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+
             } else {
                 // ne može dobiti lokaciju
                 // GPS ili Network pristup nisu uključeni
@@ -681,7 +679,7 @@ public class MainActivity extends Activity implements OnMarkerClickListener,
 
             try {
 
-                Toast.makeText(getApplicationContext(), "try", Toast.LENGTH_LONG).show();
+
                 d1 = myformat.parse(dateStart);
                 d2 = myformat.parse(dateStop);
 

@@ -82,18 +82,10 @@ public class FragmentFiltrationMap extends Fragment {
         }else {
             reciklaznoDvoriste.setChecked(false);
         }
-        //List<String> myDataFromActivity = activity.getMyData();
-      /*  if(myDataFromActivity == null){
-            Log.d("eeeeeeeeeeeeeeeeeeee", "lista je prazna prvi put");
-        }else {
-           // updateCheckBoxStates(myDataFromActivity); // update gumbova iz activitiyasuper :D idemo probat
-            Log.d("zzzzzzzzzzzzzzzzz", "ovo nema smisla ali dobrot");
-        }*/
 
 
-       Toast.makeText(getActivity(),proba+"obrana od null", Toast.LENGTH_LONG).show();
-        //pap = getArguments().getBoolean("papirStanje");
-        //updateCheckBoxStates(pap);
+
+
 
 
         papir.setOnCheckedChangeListener(myClickListener);
